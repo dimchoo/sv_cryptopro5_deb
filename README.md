@@ -7,7 +7,7 @@
 > Тестовые корневой и промежуточный сертификаты `rubca.cer`, `subca.cer` можно скачать по адресу: http://testca2012.cryptopro.ru/ui/
 
 ### 2. Добавить `volumes` в `docker-compose.yml`
-В файле 'docker-compose.yml' для SecurityVision добавить `volumes` в сервисе коннекторов:
+В файле `docker-compose.yml` для SecurityVision добавить `volumes` в сервисе коннекторов:
 ```docker
 volumes:
    - crypto_distr:/crypto_distr
@@ -33,7 +33,7 @@ docker compose stop <container name>
 docker-compose up -d --build --force-recreate --no-deps <container name>
 ```
 
-### 5. Зайти в кнтейнер с коннекторами
+### 5. Зайти в контейнер с коннекторами
 ```shell
 docker compose exec -it <container name> /bin/bash
 ```
