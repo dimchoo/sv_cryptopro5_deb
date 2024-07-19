@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+CERTS_CHECK="$(certmgr -list | grep -E "Subject ")"
+
+# check if certs exists
+if [[ $CERTS_CHECK == *"Subject "* ]]; then
+	touch ./result.json
+else
+	echo "[]" > ./result.json
+    exit 0
+fi
+
+COUNTER=1
+
+# prepare data from certmgr
+certmgr -list | grep -E "Subject " | awk -F'CN=' '{ print $2 }' | tr -d '"' > ./names.txt
+certmgr -list | grep -E "Subject " | awk -F'E=' '{ print $2 }' | cut -d "," -f 1 | tr -d '"' > ./emails.txt
+certmgr -list | grep -E "Not valid after" | cut -d ":" -f 2 | cut -d " " -f 2 | tr -d '"' > ./valid_to.txt
+
+# count certs qty
+CERTS_QTY=$(wc -l < names.txt)
+
+# prepare result json
+echo "[" > ./result.json
+while (($COUNTER <= $CERTS_QTY ))
+do
+	echo '	{' >> ./result.json
+	echo '		"name": "'"$(cat ./names.txt | tail -n $COUNTER | head -n 1)"'",'>> ./result.json
+	echo '		"e-mail": "'"$(cat ./emails.txt | tail -n $COUNTER | head -n 1)"'",' >> ./result.json
+	echo '		"valid-to": "'"$(cat ./valid_to.txt | tail -n $COUNTER | head -n 1)"'"' >> ./result.json
+	echo '	}' >> ./result.json
+	echo "	," >> ./result.json
+	COUNTER=$((COUNTER + 1))
+done
+sed -i '$ d' ./result.json
+echo "]" >> ./result.json
+
+# remove tmp files
+rm -f ./names.txt
+rm -f ./emails.txt
+rm -f ./valid_to.txt
+
+# print result
+if [[ $CERTS_CHECK == *"Subject "* ]]; then
+	cat ./result.json
+fi
