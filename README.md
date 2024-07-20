@@ -90,5 +90,5 @@ certmgr -list -store root
 ```
 Подписать файл:
 ```shell
-cryptcp -sign -thumbprint <id сертифиата> -uMy -der test.txt test.srt
+cryptcp -sign -thumbprint <id сертифиата> -uMy -der test.txt test.sig
 ```
