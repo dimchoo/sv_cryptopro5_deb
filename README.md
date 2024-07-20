@@ -10,9 +10,9 @@
 В файле `docker-compose.yml` для SecurityVision добавить `volumes` в сервисе коннекторов:
 ```docker
 volumes:
-   - crypto_distr:/crypto_distr
-   - crypto_src:/crypto_src
-   - crypto_cer:/crypto_cer
+   - ./crypto_distr:/crypto_distr
+   - ./crypto_src:/crypto_src
+   - ./crypto_cer:/crypto_cer
 ```
 ### 3. Добавить `command` в `docker-compose.yml`
 ```docker
@@ -76,6 +76,7 @@ docker cp <путь к файлу на хост машине> containerid:<пу�
 ### 8. Установить тестовый сертификат внутри контейнера
 ```shell
 certmgr -install -file /crypto_cer/<имя сертификата>
+cryptcp -instcert -provtype 81 /crypto_cer/<имя сертификата>
 ```
 
 ### 9. Проверить подписание сертификата
