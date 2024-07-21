@@ -92,3 +92,22 @@ certmgr -list -store root
 ```shell
 cryptcp -sign -thumbprint <id сертифиата> -uMy -der test.txt test.sig
 ```
+
+### *10 Если entrypoint.sh не отработал
+Зайти в контейнер:
+````shell
+docker compose exec -it <container name> /bin/bash
+````
+Внутри контейнера выполнить команды:
+```shell
+/crypto_distr/install.sh kc1
+ln -s /opt/cprocsp/sbin/amd64/cpconfig /usr/bin/cpconfig
+ln -s /opt/cprocsp/bin/amd64/certmgr /usr/bin/certmgr
+ln -s /opt/cprocsp/bin/amd64/cryptcp /usr/bin/cryptcp
+yes o | certmgr -install -store root -file /crypto_cer/rootca.cer
+certmgr -install -file /crypto_cer/subca.cer
+cp /crypto_src/certs_info /usr/bin/certs_info
+chmod +x /usr/bin/certs_info
+certs_info
+apt-get update && apt-get install expect
+```
