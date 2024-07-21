@@ -104,7 +104,7 @@ docker compose exec -it <container name> /bin/bash
 ln -s /opt/cprocsp/sbin/amd64/cpconfig /usr/bin/cpconfig
 ln -s /opt/cprocsp/bin/amd64/certmgr /usr/bin/certmgr
 ln -s /opt/cprocsp/bin/amd64/cryptcp /usr/bin/cryptcp
-yes o | certmgr -install -store root -file /crypto_cer/rootca.cer
+certmgr -install -store root -file /crypto_cer/rootca.cer
 certmgr -install -file /crypto_cer/subca.cer
 cp /crypto_src/certs_info /usr/bin/certs_info
 chmod +x /usr/bin/certs_info
