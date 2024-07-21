@@ -9,6 +9,6 @@ certmgr -install -file /crypto_cer/subca.cer
 cp /crypto_src/certs_info /usr/bin/certs_info
 chmod +x /usr/bin/certs_info
 certs_info
-y yes | apt update && apt install expect
+y yes | apt-get update && apt-get install expect
 
 exec "$@"
