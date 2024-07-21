@@ -93,7 +93,7 @@ certmgr -list -store root
 cryptcp -sign -thumbprint <id сертифиата> -uMy -der test.txt test.sig
 ```
 
-### *10 Если entrypoint.sh не отработал
+### *10. Если entrypoint.sh не отработал
 Зайти в контейнер:
 ````shell
 docker compose exec -it <container name> /bin/bash
